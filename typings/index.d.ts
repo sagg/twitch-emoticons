@@ -38,6 +38,7 @@ declare module '@mkody/twitch-emoticons' {
             template?: string,
             type?: string,
             match?: RegExp
+            animated?: boolean
         });
 
         public parse(text: string, size?: number): string;

@@ -31,7 +31,8 @@ class EmoteParser {
         this.options = Object.assign({
             template: '',
             type: 'markdown',
-            match: /:(.+?):/g
+            match: /:(.+?):/g,
+            animated: true
         }, options);
 
         this._validateOptions(this.options);
@@ -49,6 +50,10 @@ class EmoteParser {
         if (!(options.match instanceof RegExp) || !options.match.global) {
             throw new TypeError('Match must be a global RegExp.');
         }
+
+        if (typeof options.animated !== 'boolean') {
+            throw new TypeError('Animated must be a Boolean.');
+        }
     }
 
     /**
@@ -62,6 +67,7 @@ class EmoteParser {
             const emote = this.fetcher.emotes.get(id);
             if (!emote) return matched;
             if (emote.modifier) return '';
+            if (emote.animated && !this.options.animated) return '';
 
             const template = this.options.template || Constants.Templates[this.options.type];
             const link = emote.toLink(size);

@@ -67,7 +67,7 @@ class EmoteParser {
             const emote = this.fetcher.emotes.get(id);
             if (!emote) return matched;
             if (emote.modifier) return '';
-            if (emote.animated && !this.options.animated) return '';
+            if (emote.animated && !this.options.animated) return matched;
 
             const template = this.options.template || Constants.Templates[this.options.type];
             const link = emote.toLink(size);
